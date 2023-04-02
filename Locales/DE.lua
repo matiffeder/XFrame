@@ -1,0 +1,15 @@
+XFrameLang = {
+	["Anchor"]="zeige Anchor",
+	["Dummy"]="zeige Dummy zum Bewegen",
+	["Hide"]="Rechts-Klick verstecke.",
+	["HideMenu"]="verstecke MainMenu",
+	["HideExp"]="verstecke Exp Bar",
+	["Screen"]="Bildschirm breite",
+	["TargetTarget"]="ZielZiel",
+	["Debuff"]="Debuff",
+	["CastingBar"]="Zauberleiste",
+	["TCastingBar"]="Ziel Zauber",
+	["Saved"]="einstellungen gespeichert.",
+	["Load"]="geladen,",
+	["ToConfig"]="eingeben um Einstellungen zu \195\182ffnen.",
+};

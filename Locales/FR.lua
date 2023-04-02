@@ -1,0 +1,15 @@
+XFrameLang = {
+	["Anchor"]="Montrer Encrage",
+	["Dummy"]="Montrer Dummy pour d\195\169placer",
+	["Hide"]="Click-Droit pour cacher.",
+	["HideMenu"]="Cacher MainMenu",
+	["HideExp"]="Cacher bar Exp",
+	["Screen"]="écran largeur",
+	["TargetTarget"]="TargetTarget",
+	["Debuff"]="Debuff",
+	["CastingBar"]="CastingBar",
+	["TCastingBar"]="Target Casting",
+	["Saved"]="configation sauvegard\195\169.",
+	["Load"]="chargés, tapez",
+	["ToConfig"]="pour configurer",
+};

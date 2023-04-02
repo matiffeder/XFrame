@@ -1,0 +1,15 @@
+XFrameLang = {
+	["Anchor"]="Show Anchor",
+	["Dummy"]="Show Dummy for moving",
+	["Hide"]="Right-Click to hide.",
+	["HideMenu"]="Hide MainMenu",
+	["HideExp"]="Hide Exp Bar",
+	["Screen"]="Screen Width",
+	["TargetTarget"]="TargetTarget",
+	["Debuff"]="Debuff",
+	["CastingBar"]="CastingBar",
+	["TCastingBar"]="Target Casting",
+	["Saved"]="config saved.",
+	["Load"]="loaded, type",
+	["ToConfig"]="to config.",
+};

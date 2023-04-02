@@ -1,0 +1,452 @@
+<Ui xmlns="http://www.runewaker.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../worldxml/ui.xsd"> 
+	<Script file="XFrame.lua"/>
+	<EditBox name="XFramePosTemp" inherits="UIPanelEditBoxTemplate" letters="5" virtual="true">
+		<Size><AbsDimension x="50" y="18"/></Size>
+	</EditBox>
+	<EditBox name="XFrameXTemp" inherits="XFramePosTemp" virtual="true">
+		<Layers><Layer>
+				<FontString name="$parent_Text" inherits="GameFontNormalLarge" justifyH="LEFT" text="X :">
+					<Anchors><Anchor point="RIGHT" relativeTo="$parent" relativePoint="LEFT"/></Anchors>
+				</FontString>
+				<FontString name="$parent_Desc" inherits="GameFontNormalLarge" justifyH="LEFT">
+					<Anchors><Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT"><Offset>
+					<AbsDimension x="-150" y="0"/></Offset></Anchor></Anchors>
+				</FontString>
+			</Layer></Layers>
+		<Scripts><OnLeave>GameTooltip:Hide();</OnLeave></Scripts>
+	</EditBox>
+	<EditBox name="XFrameYTemp" inherits="XFramePosTemp" virtual="true">
+		<Layers><Layer>
+				<FontString name="$parent_Text" inherits="GameFontNormalLarge" justifyH="LEFT" text="Y :">
+					<Anchors><Anchor point="RIGHT" relativeTo="$parent" relativePoint="LEFT"/></Anchors>
+				</FontString>
+			</Layer></Layers>
+	</EditBox>
+	<CheckButton name="XFrameCheckTemp" inherits="UIPanelCheckButtonTemplate" virtual="true">
+		<Layers><Layer>
+				<FontString name="$parent_Text" inherits="GameFontNormalLarge" justifyH="LEFT" text="GCF_VISIBLE">
+					<Anchors><Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/></Anchors>
+				</FontString>
+			</Layer></Layers>
+	</CheckButton>
+	<Frame name="XFrameTemp" enableMouse="true" framelevel="100" virtual="true">
+		<Scripts>
+			<OnMouseDown>XFrame_MoveStart(key, this);</OnMouseDown>
+			<OnMouseUp>XFrame_MoveEnd(this);</OnMouseUp>
+			<OnEnter>XFrame_Tooltip(this);</OnEnter>
+			<OnLeave>GameTooltip:Hide();</OnLeave>
+		</Scripts>
+	</Frame>
+	<Frame name="XFrameShadowTemp" enableMouse="true" frameLevel="101" hidden="true" virtual="true">
+		<Layers>
+			 <Layer>
+				<Texture name="$parentTexture" file="Interface\Buttons\ListBox-Highlight"><Color r="1" g="0" b="0"/></Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>this:RegisterForClicks("LeftButton", "RightButton");</OnLoad>
+			<OnClick>if key=="RBUTTON" then this:Hide(); end</OnClick>
+			<OnDragStart>XFrame_MoveStart(key, this, true);</OnDragStart>
+			<OnEnter>
+				GameTooltip:SetOwner(this, "ANCHOR_RIGHT", 10, 10);
+				GameTooltip:SetText(TIMEKEEPER_TOOLTIP.."\n"..XFrameLang["Hide"]);
+			</OnEnter>
+			<OnLeave>GameTooltip:Hide();</OnLeave>
+		</Scripts>
+	</Frame>
+	<Frame name="XFrameGUI" parent="UIParent" hidden="true" enableMouse="true" frameStrata="MEDIUM" frameLevel="1">
+		<Size><AbsDimension x="612" y="503"/></Size>
+		<Anchors><Anchor point="CENTER"/></Anchors>
+		<Backdrop edgeFile="Interface\Tooltips\Tooltip-Border" bgFile="Interface\Tooltips\Tooltip-Background">
+			<BackgroundInsets><AbsInset top="4" left="4" bottom="4" right="4"/></BackgroundInsets>
+			<EdgeSize><AbsValue val="16"/></EdgeSize>
+			<TileSize><AbsValue val="16"/></TileSize>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parent_Version" inherits="Font_FrameTitle">
+					<Anchors><Anchor point="TOP"><Offset>
+						<AbsDimension x="0" y="10"/></Offset></Anchor></Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parent_Close" inherits="UIPanelButtonTemplate" text="CLOSE">
+				<Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-7" y="-6"/></Offset></Anchor></Anchors>
+				<Size><AbsDimension x="110" y="30"/></Size>
+				<Scripts>
+					<OnClick>XFrame_Close(this);</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parent_Save" inherits="UIPanelButtonTemplate" text="OBJ_SAVE">
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_Close"/>
+				</Anchors>
+				<Size><AbsDimension x="110" y="30"/></Size>
+				<Scripts>
+					<OnClick>XFrame_Save();</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parent_Default" inherits="UIPanelButtonTemplate" text="DEFAULT">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="10" y="-6"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size><AbsDimension x="120" y="30"/></Size>
+				<Scripts><OnClick>XFrame_Default();</OnClick></Scripts>
+			</Button>
+			<CheckButton name="$parent_CB" inherits="XFrameCheckTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="15" y="35"/></Offset></Anchor></Anchors>
+			</CheckButton>
+			<CheckButton name="$parent_XA" inherits="XFrameCheckTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="140" y="35"/></Offset></Anchor></Anchors>
+			</CheckButton>
+			<EditBox name="$parent_XP_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="75"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Bottom, Bottom, None");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_XP_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_XP_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<EditBox name="$parent_XP_W" inherits="XFrameYTemp" letters="5" numeric="true">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_XP_Y" relativePoint="RIGHT"><Offset><AbsDimension x="80" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<CheckButton name="$parent_HM" inherits="XFrameCheckTemp">
+				<Anchors><Anchor point="BOTTOM" relativeTo="$parent_XP_Y" relativePoint="TOP"><Offset><AbsDimension x="85" y="-10"/></Offset></Anchor></Anchors>
+			</CheckButton>
+			<CheckButton name="$parent_HE" inherits="XFrameCheckTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_HM" relativePoint="RIGHT"><Offset><AbsDimension x="175" y="0"/></Offset></Anchor></Anchors>
+			</CheckButton>
+			<Button name="$parent_XP_G" inherits="UIPanelButtonTemplate">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_XP_W" relativePoint="RIGHT"><Offset><AbsDimension x="10" y="0"/></Offset></Anchor></Anchors>
+				<Size><AbsDimension x="120" y="30"/></Size>
+				<Scripts><OnClick>XFrameSet["XP_W"] = math.floor(GetScreenWidth()); XFrameGUI_XP_W:SetText(XFrameSet["XP_W"]); ExperienceFrame:SetWidth(XFrameSet["XP_W"]);</OnClick></Scripts>
+			</Button>
+			<EditBox name="$parent_PF_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="105"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Top-Left, Top-Left, None");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_PF_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_PF_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<EditBox name="$parent_PET_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="135"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Top-Left, Top-Left, |cffFFAA00Player|r");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_PET_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_PET_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<EditBox name="$parent_TF_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="165"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Top, Top, None");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_TF_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_TF_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<EditBox name="$parent_TT_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="195"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Top-Left, Bottom-Right, |cffFFAA00Target|r");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_TT_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_TT_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<EditBox name="$parent_BF_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="225"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Top-Right, Top-Right, None");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_BF_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_BF_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<Button name="$parent_BF_Dummy" inherits="UIPanelButtonTemplate">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_BF_Y" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+				<Size><AbsDimension x="200" y="30"/></Size>
+				<Scripts><OnClick>XFrame_ShowDummy("XFrameBF_Shadow", "PlayerBuffButton1");</OnClick></Scripts>
+			</Button>
+			<EditBox name="$parent_DB_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="255"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Top-Right, Bottom-Right, |cffFFAA00Buff|r");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_DB_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_DB_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<Button name="$parent_DB_Dummy" inherits="UIPanelButtonTemplate">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_DB_Y" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+				<Size><AbsDimension x="200" y="30"/></Size>
+				<Scripts><OnClick>XFrame_ShowDummy("XFrameDB_Shadow", "PlayerDebuffButton1");</OnClick></Scripts>
+			</Button>
+			<EditBox name="$parent_CB_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="285"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Bottom, Bottom, None");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_CB_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_CB_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<Button name="$parent_CB_Dummy" inherits="UIPanelButtonTemplate">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_CB_Y" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+				<Size><AbsDimension x="200" y="30"/></Size>
+				<Scripts><OnClick>XFrame_ShowDummy("XFrameCB_Shadow", "CastingBarFrame");</OnClick></Scripts>
+			</Button>
+			<EditBox name="$parent_TCB_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="315"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Top-Left, Bottom-Left, |cffFFAA00Target|r");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_TCB_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_TCB_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<Button name="$parent_TCB_Dummy" inherits="UIPanelButtonTemplate">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_TCB_Y" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+				<Size><AbsDimension x="200" y="30"/></Size>
+				<Scripts><OnClick>XFrame_ShowDummy("XFrameTCB_Shadow", "TargetCastingBar");</OnClick></Scripts>
+			</Button>
+			<EditBox name="$parent_PT_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="345"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Top-Left, Top-Left, None");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_PT_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_PT_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<Button name="$parent_PT_Dummy" inherits="UIPanelButtonTemplate">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_PT_Y" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+				<Size><AbsDimension x="200" y="30"/></Size>
+				<Scripts><OnClick>XFrame_ShowDummy("XFramePT_Shadow", "UnitFrame_party1");</OnClick></Scripts>
+			</Button>
+			<EditBox name="$parent_HF_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="375"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Top-Left, Top-Left, None");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_HF_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_HF_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<EditBox name="$parent_GHF_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="405"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Top-Left, Top-Left, None");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_GHF_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_GHF_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<EditBox name="$parent_FPS_X" inherits="XFrameXTemp">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="170" y="435"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(this, "ANCHOR_BOTTOM", 0, 0);
+						GameTooltip:SetText("Bottom, Bottom, None");
+					</OnEnter>
+				</Scripts>
+			</EditBox>
+			<EditBox name="$parent_FPS_Y" inherits="XFrameYTemp">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_FPS_X" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+			</EditBox>
+			<Button name="$parent_FPS_Dummy" inherits="UIPanelButtonTemplate">
+				<Anchors><Anchor point="LEFT" relativeTo="$parent_FPS_Y" relativePoint="RIGHT"><Offset><AbsDimension x="40" y="0"/></Offset></Anchor></Anchors>
+				<Size><AbsDimension x="200" y="30"/></Size>
+				<Scripts><OnClick>ToggleUIFrame(XFrameFPS);</OnClick></Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>XFrame_OnLoad(this);</OnLoad>
+			<OnEvent>XFrame_OnEvent(event);</OnEvent>
+			<OnShow>
+				if XBARVERSION and XBARVERSION>=1.51 then
+					XAddon_Page(this);
+				end
+				XFrame_OnShow();
+			</OnShow>
+			<OnMouseDown>
+				if not XBARVERSION then
+					this:StartMoving();
+				end
+			</OnMouseDown>
+			<OnMouseUp>
+				if not XBARVERSION then
+					this:StopMovingOrSizing();
+				end
+			</OnMouseUp>
+		</Scripts>
+	</Frame>
+	<Frame name="XFramePF" parent="PlayerFrame" inherits="XFrameTemp">
+		<Size><AbsDimension x="155" y="16"/></Size>
+		<Anchors><Anchor point="TOPLEFT" relativeTo="PlayerFrame" relativePoint="TOPLEFT"><Offset>
+			<AbsDimension x="115" y="4"/></Offset></Anchor></Anchors>
+	</Frame>
+	<Frame name="XFramePET" parent="PetHeadFrame" inherits="XFrameTemp">
+		<Size><AbsDimension x="88" y="16"/></Size>
+		<Anchors><Anchor point="TOPLEFT" relativeTo="PetHeadFrame" relativePoint="TOPLEFT"><Offset>
+			<AbsDimension x="0" y="12"/></Offset></Anchor></Anchors>
+	</Frame>
+	<Frame name="XFrameTF" parent="TargetFrame" inherits="XFrameTemp">
+		<Size><AbsDimension x="115" y="16"/></Size>
+		<Anchors><Anchor point="TOPLEFT" relativeTo="TargetFrame" relativePoint="TOPLEFT"><Offset>
+			<AbsDimension x="5" y="20"/></Offset></Anchor></Anchors>
+	</Frame>
+	<Frame name="XFrameTT" parent="TargetTargetFrame" inherits="XFrameTemp">
+		<Size><AbsDimension x="88" y="16"/></Size>
+		<Anchors><Anchor point="TOPLEFT" relativeTo="TargetTargetFrame" relativePoint="TOPLEFT"><Offset>
+			<AbsDimension x="32" y="16"/></Offset></Anchor></Anchors>
+	</Frame>
+	<Frame name="XFrameBF" parent="PlayerBuffButton1" inherits="XFrameTemp">
+		<Size><AbsDimension x="16" y="16"/></Size>
+		<Anchors><Anchor point="TOPRIGHT" relativeTo="PlayerBuffButton1" relativePoint="TOPRIGHT"><Offset>
+			<AbsDimension x="10" y="-10"/></Offset></Anchor></Anchors>
+		<Layers>
+			 <Layer>
+				<Texture name="$parentTexture" file="Interface\ChatFrame\ChatBtn-Resize-Normal"/>
+			</Layer>
+		</Layers>
+	</Frame>
+	<Frame name="XFrameBF_Shadow" parent="UIParent" inherits="XFrameShadowTemp">
+		<Size><AbsDimension x="16" y="16"/></Size>
+		<Anchors><Anchor point="TOPRIGHT" relativeTo="UIParent" relativePoint="TOPRIGHT"/></Anchors>
+		<Scripts>
+			<OnDragStop>XFrame_MoveEnd(this, true, "PlayerBuffButton1");</OnDragStop>
+		</Scripts>
+	</Frame>
+	<Frame name="XFrameDB" parent="PlayerDebuffButton1" inherits="XFrameTemp">
+		<Size><AbsDimension x="16" y="16"/></Size>
+		<Anchors><Anchor point="TOPRIGHT" relativeTo="PlayerDebuffButton1" relativePoint="TOPRIGHT"><Offset>
+			<AbsDimension x="10" y="-10"/></Offset></Anchor></Anchors>
+		<Layers>
+			 <Layer>
+				<Texture name="$parentTexture" file="Interface\ChatFrame\ChatBtn-Resize-Normal"/>
+			</Layer>
+		</Layers>
+	</Frame>
+	<Frame name="XFrameDB_Shadow" parent="UIParent" inherits="XFrameShadowTemp">
+		<Size><AbsDimension x="16" y="16"/></Size>
+		<Anchors><Anchor point="TOPRIGHT" relativeTo="PlayerBuffButton17" relativePoint="BOTTOMRIGHT"/></Anchors>
+		<Scripts>
+			<OnDragStop>XFrame_MoveEnd(this, true, "PlayerDebuffButton1");</OnDragStop>
+		</Scripts>
+	</Frame>
+	<Frame name="XFrameCB" parent="CastingBarFrame" inherits="XFrameTemp">
+		<Size><AbsDimension x="16" y="16"/></Size>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="CastingBarFrame" relativePoint="TOPLEFT"/>
+			<Anchor point="BOTTOMRIGHT" relativeTo="CastingBarFrame" relativePoint="BOTTOMRIGHT"/>
+		</Anchors>
+	</Frame>
+	<Frame name="XFrameCB_Shadow" parent="UIParent" inherits="XFrameShadowTemp">
+		<Size><AbsDimension x="190" y="12"/></Size>
+		<Anchors><Anchor point="BOTTOM" relativeTo="UIParent" relativePoint="BOTTOM"/></Anchors>
+		<Scripts>
+			<OnDragStop>XFrame_MoveEnd(this, true, "CastingBarFrame");</OnDragStop>
+		</Scripts>
+	</Frame>
+	<Frame name="XFrameTCB" parent="TargetCastingBar" inherits="XFrameTemp">
+		<Size><AbsDimension x="114" y="14"/></Size>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="TargetCastingBar" relativePoint="TOPLEFT"/>
+			<Anchor point="BOTTOMRIGHT" relativeTo="TargetCastingBar" relativePoint="BOTTOMRIGHT"/>
+		</Anchors>
+	</Frame>
+	<Frame name="XFrameTCB_Shadow" parent="UIParent" inherits="XFrameShadowTemp">
+		<Size><AbsDimension x="114" y="14"/></Size>
+		<Anchors><Anchor point="TOPLEFT" relativeTo="TargetFrame" relativePoint="BOTTOMLEFT"/></Anchors>
+		<Scripts>
+			<OnDragStop>XFrame_MoveEnd(this, true, "TargetCastingBar");</OnDragStop>
+		</Scripts>
+	</Frame>
+	<Frame name="XFrameXP" parent="ExperienceFrame" inherits="XFrameTemp">
+		<Size><AbsDimension x="16" y="16"/></Size>
+		<Anchors><Anchor point="TOPLEFT" relativeTo="ExperienceFrame" relativePoint="TOPLEFT"><Offset>
+			<AbsDimension x="-6" y="-12"/></Offset></Anchor></Anchors>
+		<Layers>
+			 <Layer>
+				<Texture name="$parentTexture" file="Interface\WorldMap\WorldMap-TitlebarSwitch-Normal"/>
+			</Layer>
+		</Layers>
+	</Frame>
+	<Frame name="XFramePT" parent="UnitFrame_party1" inherits="XFrameTemp">
+		<Size><AbsDimension x="88" y="16"/></Size>
+		<Anchors><Anchor point="TOPLEFT" relativeTo="UnitFrame_party1" relativePoint="TOPLEFT"><Offset>
+			<AbsDimension x="64" y="12"/></Offset></Anchor></Anchors>
+	</Frame>
+	<Frame name="XFramePT_Shadow" parent="UIParent" inherits="XFrameShadowTemp">
+		<Size><AbsDimension x="190" y="12"/></Size>
+		<Anchors><Anchor point="TOPLEFT" relativeTo="UIParent" relativePoint="TOPLEFT"/></Anchors>
+		<Scripts>
+			<OnDragStop>XFrame_MoveEnd(this, true, "UnitFrame_party1");</OnDragStop>
+		</Scripts>
+	</Frame>
+	<Frame name="XFrameHF" parent="HouseFrame" inherits="XFrameTemp">
+		<Size><AbsDimension x="204" y="27"/></Size>
+		<Anchors><Anchor point="TOPLEFT" relativeTo="HouseFrame" relativePoint="TOPLEFT"/></Anchors>
+	</Frame>
+	<Frame name="XFrameGHF" parent="GuildHouseFrame" inherits="XFrameTemp">
+		<Size><AbsDimension x="204" y="27"/></Size>
+		<Anchors><Anchor point="TOPLEFT" relativeTo="GuildHouseFrame" relativePoint="TOPLEFT"/></Anchors>
+	</Frame>
+	<Frame name="XFrameFPS" parent="UIParent" inherits="XFrameShadowTemp" hidden="false">
+		<Size><AbsDimension x="16" y="16"/></Size>
+		<Anchors><Anchor point="TOPLEFT"/></Anchors>
+		<Scripts>
+			<OnDragStop>
+				this:StopMovingOrSizing();
+				_, _, _, XFrameSet["FPS_X"], XFrameSet["FPS_Y"] = this:GetAnchor();
+				XFrame_OnShow();
+			</OnDragStop>
+		</Scripts>
+	</Frame>
+</Ui>

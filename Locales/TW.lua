@@ -1,0 +1,15 @@
+XFrameLang = {
+	["Anchor"]="顯示拖曳錨點",
+	["Dummy"]="顯示虛擬位置",
+	["Hide"]="右鍵關閉",
+	["HideMenu"]="隱藏主選單",
+	["HideExp"]="隱藏經驗值條",
+	["Screen"]="螢幕寬度",
+	["TargetTarget"]="目標的目標",
+	["Debuff"]="減益效果",
+	["CastingBar"]="詠唱條",
+	["TCastingBar"]="目標詠唱條",
+	["Saved"]="已儲存設定",
+	["Load"]="已讀取，輸入",
+	["ToConfig"]="開啟設定介面",
+};
